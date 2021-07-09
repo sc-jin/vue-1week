@@ -2,6 +2,9 @@
 
 이 강의는 '[Vue.js 프로젝트 투입 일주일 전](http://www.yes24.com/Product/Goods/101926719)' 저서를 교재로 사용하며, 실무(SAP ERP, 웹, 모바일 서비스) 경력 22년의 강사가 프론트엔드 프레임워크 기술인 Vue.js를 실무에 가장 빠르게 적용할 수 있는 방법을 알려드립니다.
 
+- 강의문의 : seungwon.go@gmail.com
+- 유튜브채널 : [개발자의품격](https://www.youtube.com/c/%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%98%ED%92%88%EA%B2%A9)
+
 ## 강의 목표
 
 1. Vue.js 3.x 버전을 기반으로 Vue프로젝트 생성 및 기본문법, 고급문법을 실무를 바탕으로 모두 배웁니다.
