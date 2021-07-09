@@ -1,5 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import ReuseComponent from '../views/4_reuse/ReuseComponent.vue'
+import ReuseComponent2 from '../views/4_reuse/ReuseComponent2.vue'
+import ControlChild from '../views/4_reuse/ControlChild.vue'
+import ControlParent from '../views/4_reuse/ControlParent.vue'
+import Slot from '../views/4_reuse/Slot.vue'
 
 const routes = [
   {
@@ -114,6 +119,31 @@ const routes = [
     path: '/extra/watch',
     name: 'Watch',
     component: () => import(/* webpackPrefetch:true, webpackChunkName: "event" */ '../views/3_extra/Watch.vue')
+  },
+  {
+    path: '/reuse/reusecomponent',
+    name: 'ReuseComponent',
+    component: ReuseComponent
+  },
+  {
+    path: '/reuse/reusecomponent2',
+    name: 'ReuseComponent2',
+    component: ReuseComponent2
+  },
+  {
+    path: '/reuse/controlchild',
+    name: 'ControlChild',
+    component: ControlChild
+  },
+  {
+    path: '/reuse/controlparent',
+    name: 'ControlParent',
+    component: ControlParent
+  },
+  {
+    path: '/reuse/slot',
+    name: 'Slot',
+    component: Slot
   }
 ]
 
