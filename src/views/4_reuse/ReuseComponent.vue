@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import PageTitle from '../components/fragments/PageTitle.vue'
+import PageTitle from '@/components/fragments/PageTitle'
 export default {
   name: '',
   components: { PageTitle },

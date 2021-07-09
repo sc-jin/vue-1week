@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import ModalLayout from '../components/fragments/SlotModalLayout'
+import ModalLayout from '@/components/fragments/SlotModalLayout'
 export default {
   name: '',
   components: { 'modal-layout': ModalLayout },

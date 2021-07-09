@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import ProvideInjectChild from '../components/fragments/ProvideInjectChild'
+import ProvideInjectChild from '@/components/fragments/ProvideInjectChild'
 export default {
   name: '',
   components: { ProvideInjectChild },

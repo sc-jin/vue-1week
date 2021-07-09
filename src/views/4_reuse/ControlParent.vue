@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import Child from '../components/fragments/ControlParentChild.vue'
+import Child from '@/components/fragments/ControlParentChild.vue'
 export default {
   name: '',
   components: { Child },

@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import DataGrid2 from '../components/fragments/DataGrid.vue'
+import DataGrid2 from '@/components/fragments/DataGrid.vue'
 
 export default {
   name: '',
