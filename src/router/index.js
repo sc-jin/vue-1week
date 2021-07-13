@@ -146,6 +146,21 @@ const routes = [
     component: Slot
   },
   {
+    path: '/advanced/mixin',
+    name: 'Mixin',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "advanced" */ '../views/5_advanced/Mixin.vue')
+  },
+  {
+    path: '/advanced/plugin',
+    name: 'Plugin',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "advanced" */ '../views/5_advanced/Plugin.vue')
+  },
+  {
+    path: '/vuex/store',
+    name: 'StoreAccess',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "vuex" */ '../views/6_vuex/StoreAccess.vue')
+  },
+  {
     path: '/materialmodal',
     name: 'MaterialModal',
     component: () => import(/* webpackPrefetch:true, webpackChunkName: "modal" */ '../components/erp/MaterialModal.vue')
