@@ -115,20 +115,26 @@ export default {
         this.filterList = this.items
       } else {
         this.filterList = this.items.filter(item => {
-          return this.headers.forEach(ele => {
+          const len = this.headers.length
+          let isExist = false
+          for (let i = 0; i < len; i++) {
             if (
-              item[ele.key]
+              item[this.headers[i].key]
                 .toString()
                 .toLowerCase()
                 .indexOf(f) > -1
             ) {
-              return true
+              isExist = true
+              break
             }
+          }
 
-            return false
-          })
+          return isExist
         })
       }
+
+      this.paging()
+      this.changePage(1)
     },
     doSort(key) {
       this.sortValue = this.sortKey === key ? this.sortValue * -1 : 1
@@ -144,7 +150,6 @@ export default {
     },
     paging() {
       this.totalPage = Math.ceil(this.filterList.length / this.pagecnt)
-      console.log(this.totalPage)
       if (this.totalPage > 5) {
         this.pageRange = [1, 2, 3, 4, 5]
       } else {
@@ -158,7 +163,7 @@ export default {
     },
     changePage(pageNo) {
       const showList = []
-      const startIdx = (pageNo - 1) * this.pagecnt + 1
+      const startIdx = (pageNo - 1) * this.pagecnt
       let endIdx = pageNo * this.pagecnt - 1
       if (endIdx > this.filterList.length) {
         endIdx = this.filterList.length
