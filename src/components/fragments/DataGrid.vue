@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div v-if="enableFilter">
       <input type="search" v-model="searchText" @keyup.enter="doFilter" />
       <button @click="doFilter">조회</button>
     </div>
@@ -32,7 +32,13 @@
             />
           </td>
           <td :key="j" v-for="(h, j) in headers">
-            {{ item[h['key']] }}
+            <a
+              class="link"
+              v-if="h.link"
+              @click="goToLink(item[h.linkKey], h.eventName)"
+              >{{ item[h['key']] }}</a
+            >
+            <span v-else>{{ item[h['key']] }}</span>
           </td>
         </tr>
       </tbody>
@@ -60,7 +66,7 @@ export default {
     headers: {
       type: Array,
       default: function() {
-        return [] // [{title:'컬럼명', key:'items의 오브젝트 키'}]
+        return [] // [{title:'컬럼명', key:'items의 오브젝트 키', link:false, linkKey:'', linkEventName:''}]
       }
     },
     items: {
@@ -68,6 +74,10 @@ export default {
       default: function() {
         return []
       }
+    },
+    enableFilter: {
+      type: Boolean,
+      default: false
     },
     enablePaging: {
       type: Boolean,
@@ -206,6 +216,9 @@ export default {
       } else if (this.selectType === 'checkbox') {
         this.$emit(this.eventName, this.checkedItems)
       }
+    },
+    goToLink(v, eventName) {
+      this.$emit(eventName, v)
     }
   }
 }
@@ -240,5 +253,10 @@ export default {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>

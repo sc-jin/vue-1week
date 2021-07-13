@@ -6,6 +6,7 @@
       :items="items"
       checkedKey="code"
       eventName="change-item"
+      @link="goToDetail"
       @change-item="selectMaterial"
     />
   </div>
@@ -19,7 +20,13 @@ export default {
   data() {
     return {
       headers: [
-        { title: '제품코드', key: 'code' },
+        {
+          title: '제품코드',
+          key: 'code',
+          link: true,
+          linkKey: 'code',
+          eventName: 'link'
+        },
         { title: '제품명', key: 'desc' },
         { title: '제품가격', key: 'price' }
       ],
@@ -55,6 +62,9 @@ export default {
     selectMaterial(code) {
       console.log(code)
       this.checked = code
+    },
+    goToDetail(v) {
+      console.log(v)
     }
   }
 }
