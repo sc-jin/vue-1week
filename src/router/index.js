@@ -144,6 +144,11 @@ const routes = [
     path: '/reuse/slot',
     name: 'Slot',
     component: Slot
+  },
+  {
+    path: '/materialmodal',
+    name: 'MaterialModal',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "modal" */ '../components/erp/MaterialModal.vue')
   }
 ]
 
