@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import DataGrid from './DataGrid'
+import DataGrid from '../fragments/DataGrid.vue'
 
 export default {
   name: '',
