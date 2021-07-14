@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="search-container">
       <div>
         <label class="label">지역</label>
@@ -556,6 +556,10 @@ export default {
 
 .data-grid th {
   cursor: pointer;
+}
+
+.data-grid td input {
+  width: 100%;
 }
 
 .link {

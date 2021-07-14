@@ -5,6 +5,9 @@ import store from './store'
 import mixin from './mixins'
 import i18nPlugin from './plugins/i18n' //  i18n 플러그인 추가
 
+import './assets/css/bootstrap-grid.min.css'
+import './assets/css/bootstrap-utilities.min.css'
+
 const i18nStrings = {
   en: {
     hi: 'Hello!'

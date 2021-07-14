@@ -18,7 +18,7 @@
           <td v-if="selectType === 'radio'">
             <input
               type="radio"
-              :value="item.code"
+              :value="item[checkedKey]"
               v-model="checkedItem"
               @change="doSelect"
             />
@@ -26,7 +26,7 @@
           <td v-else-if="selectType === 'checkbox'">
             <input
               type="checkbox"
-              :value="item.code"
+              :value="item[checkedKey]"
               v-model="checkedItems"
               @click="doSelect"
             />
@@ -191,7 +191,7 @@ export default {
       this.currentPage = pageNo
       const showList = []
       const startIdx = (pageNo - 1) * this.pagecnt
-      let endIdx = pageNo * this.pagecnt - 1
+      let endIdx = pageNo * this.pagecnt
       if (endIdx > this.filterList.length) {
         endIdx = this.filterList.length
       }

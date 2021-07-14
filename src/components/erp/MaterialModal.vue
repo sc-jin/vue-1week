@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div clas="modal">
     <data-grid
       selectType="radio"
       :headers="headers"
@@ -32,6 +32,12 @@ export default {
       ],
       items: [],
       checked: ''
+    }
+  },
+  props: {
+    width: {
+      type: String,
+      default: ''
     }
   },
   setup() {},
@@ -83,5 +89,9 @@ export default {
 .material-table > th,
 .material-table > td {
   border: 1px solid #222;
+}
+
+.modal {
+  margin: auto;
 }
 </style>
