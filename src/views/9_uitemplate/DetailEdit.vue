@@ -1,76 +1,65 @@
 <template>
   <div>
-    <div class="search-container">
-      <div>
-        <label class="label">지역</label>
-        <region @change-region="changeRegion" />
-      </div>
-      <div>
-        <label class="label">고객명</label>
-        <input type="text" v-model="searchCustomerName" />
-      </div>
-      <div>
-        <button @click="doSearch">조회</button>
-      </div>
-    </div>
-    <div class="table-container">
-      <data-grid
-        :headers="headers"
-        :items="items"
-        checkedKey="_id"
-        @link="goToDetail"
-      />
+    <table class="customer-table">
+      <tr>
+        <th>고객아이디</th>
+        <td>{{ customer._id }}</td>
+      </tr>
+      <tr>
+        <th>고객명</th>
+        <td><input type="text" v-model="customer.name" /></td>
+      </tr>
+      <tr>
+        <th>회사명</th>
+        <td><input type="text" v-model="customer.company" /></td>
+      </tr>
+      <tr>
+        <th>이메일</th>
+        <td><input type="text" v-model="customer.email" /></td>
+      </tr>
+      <tr>
+        <th>연락처</th>
+        <td><input type="text" v-model="customer.phone" /></td>
+      </tr>
+      <tr>
+        <th>주소</th>
+        <td><input type="text" v-model="customer.address" /></td>
+      </tr>
+    </table>
+
+    <div class="btn-area">
+      <button @click="goToDetail">취소</button>
+      <button>저장</button>
     </div>
   </div>
 </template>
 <script>
-import Region from '@/components/fragments/Region.vue'
-import DataGrid from '@/components/fragments/DataGrid.vue'
-
 export default {
   name: '',
-  components: { region: Region, 'data-grid': DataGrid },
+  components: {},
   data() {
     return {
-      searchRegion: '',
-      searchCustomerName: '',
-      regionList: [],
-      headers: [
-        { title: '고객명', key: 'name' },
-        {
-          title: '회사명',
-          key: 'company',
-          link: true,
-          linkKey: '_id',
-          eventName: 'link'
-        },
-        { title: '성별', key: 'gender' },
-        { title: '이메일', key: 'email' },
-        { title: '연락처', key: 'phone' },
-        { title: '주소', key: 'address' }
-      ],
-      items: []
+      items: [],
+      customer: {},
+      customerId: ''
     }
   },
   setup() {},
-  created() {},
+  created() {
+    console.log(this.$route.query.id)
+    this.customerId = this.$route.query.id
+    this.getCustomer()
+  },
   mounted() {},
   unmounted() {},
   methods: {
-    changeRegion(data) {
-      this.searchRegion = data
+    goToDetail() {
+      this.$router.push({
+        path: '/template/detail',
+        query: { id: this.customerId }
+      })
     },
-    goToDetail(customerId) {
-      this.$router.push({ path: '/template/detail', query: { id: customerId } })
-    },
-    doSearch() {
-      const param = {
-        region: this.searchRegion,
-        customerName: this.searchCustomerName
-      }
-
-      console.log(param)
-
+    getCustomer() {
       this.items = [
         {
           _id: '60646eed43013f9997469747',
@@ -472,29 +461,36 @@ export default {
           longitude: 171.678087
         }
       ]
+
+      this.customer = this.items.filter(c => c._id === this.customerId)[0]
     }
   }
 }
 </script>
 <style scoped>
-.search-container {
+.customer-table {
+  width: 100%;
+}
+
+.customer-table,
+.customer-table th,
+.customer-table td {
+  border-collapse: collapse;
+}
+
+.customer-table th,
+.customer-table td {
+  border: 1px solid #222;
   padding: 10px;
 }
 
-.search-container:after {
-  clear: both;
+.btn-area {
+  text-align: center;
+  margin-top: 10px;
 }
 
-.search-container > div {
-  float: left;
-  margin-right: 10px;
-}
-
-.search-container .label {
+.btn-area button {
+  padding: 5px;
   margin-right: 5px;
-  font-weight: bold;
-}
-
-.table-container {
 }
 </style>

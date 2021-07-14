@@ -45,9 +45,13 @@
     </table>
     <div class="pagination" v-if="enablePaging">
       <a @click="prevPage" v-show="pageRange[0] > 1">&laquo;</a>
-      <a @click="changePage(page)" :key="page" v-for="page in pageRange">{{
-        page
-      }}</a>
+      <a
+        @click="changePage(page)"
+        :class="{ active: page == currentPage }"
+        :key="page"
+        v-for="page in pageRange"
+        >{{ page }}</a
+      >
       <a @click="nextPage" v-show="pageRange[pageRange.length - 1] < totalPage"
         >&raquo;</a
       >
@@ -110,14 +114,24 @@ export default {
       pageRange: []
     }
   },
+  watch: {
+    items() {
+      this.filterList = this.items
+      this.changePage(1)
+      this.paging()
+      this.currentPage = 1
+    }
+  },
   setup() {},
   created() {},
   mounted() {
     this.filterList = this.items
     this.changePage(1)
     this.paging()
+    this.currentPage = 1
   },
   unmounted() {},
+  changed() {},
   methods: {
     doFilter() {
       const f = this.searchText.toLowerCase()
@@ -147,6 +161,7 @@ export default {
       this.changePage(1)
     },
     doSort(key) {
+      console.log(key)
       this.sortValue = this.sortKey === key ? this.sortValue * -1 : 1
 
       const sortValue1 = this.sortValue
@@ -157,6 +172,7 @@ export default {
       })
 
       this.sortKey = key
+      this.changePage(this.currentPage)
     },
     paging() {
       this.totalPage = Math.ceil(this.filterList.length / this.pagecnt)
@@ -172,6 +188,7 @@ export default {
       }
     },
     changePage(pageNo) {
+      this.currentPage = pageNo
       const showList = []
       const startIdx = (pageNo - 1) * this.pagecnt
       let endIdx = pageNo * this.pagecnt - 1
@@ -187,6 +204,7 @@ export default {
     },
     prevPage() {
       const pageNo = this.pageRange[0]
+      this.currentPage = pageNo
       this.pageRange = [
         pageNo - 5,
         pageNo - 4,
@@ -197,6 +215,7 @@ export default {
     },
     nextPage() {
       const pageNo = this.pageRange[this.pageRange.length - 1]
+      this.currentPage = pageNo
       const startIdx = pageNo + 1
       let endIdx = pageNo + 5
       if (endIdx > this.totalPage) {
@@ -253,6 +272,12 @@ export default {
   float: left;
   padding: 8px 16px;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.pagination a.active {
+  background-color: deeppink;
+  color: white;
 }
 
 .link {

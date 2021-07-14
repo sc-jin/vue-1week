@@ -189,6 +189,21 @@ const routes = [
     path: '/materialmodal',
     name: 'MaterialModal',
     component: () => import(/* webpackPrefetch:true, webpackChunkName: "modal" */ '../components/erp/MaterialModal.vue')
+  },
+  {
+    path: '/template/listtodetail',
+    name: 'ListToDetail',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/ListToDetail.vue')
+  },
+  {
+    path: '/template/detail',
+    name: 'Detail',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/Detail.vue')
+  },
+  {
+    path: '/template/detailedit',
+    name: 'DetailEdit',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/DetailEdit.vue')
   }
 ]
 
