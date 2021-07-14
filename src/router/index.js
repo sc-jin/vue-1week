@@ -204,6 +204,11 @@ const routes = [
     path: '/template/detailedit',
     name: 'DetailEdit',
     component: () => import(/* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/DetailEdit.vue')
+  },
+  {
+    path: '/template/multipleedit',
+    name: 'MultipleEdit',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/MultipleEdit.vue')
   }
 ]
 

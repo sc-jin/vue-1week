@@ -496,5 +496,7 @@ export default {
 }
 
 .table-container {
+  margin-top: 10px;
+  padding: 10px;
 }
 </style>

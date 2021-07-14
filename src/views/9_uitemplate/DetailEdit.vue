@@ -29,7 +29,7 @@
 
     <div class="btn-area">
       <button @click="goToDetail">취소</button>
-      <button>저장</button>
+      <button @click="doSave">저장</button>
     </div>
   </div>
 </template>
@@ -58,6 +58,9 @@ export default {
         path: '/template/detail',
         query: { id: this.customerId }
       })
+    },
+    doSave() {
+      console.log(this.customer)
     },
     getCustomer() {
       this.items = [
