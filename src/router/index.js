@@ -219,6 +219,11 @@ const routes = [
     path: '/template/shuttle',
     name: 'Shuttle',
     component: () => import(/* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/Shuttle.vue')
+  },
+  {
+    path: '/template/singleviewedit',
+    name: 'SingleViewEdit',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/SingleViewEdit.vue')
   }
 ]
 
