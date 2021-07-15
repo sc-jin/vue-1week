@@ -3,7 +3,7 @@
     <div></div>
     <table class="customer-table">
       <tr>
-        <th>고객아이디</th>
+        <th>고객 선택</th>
         <td>
           <select
             v-model="customerId"
