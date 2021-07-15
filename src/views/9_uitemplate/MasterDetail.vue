@@ -554,6 +554,18 @@ export default {
   padding: 10px;
 }
 
+.detail-table th {
+  text-align: right;
+}
+
+.detail-table td {
+  text-align: left;
+}
+
+.detail-table td input {
+  width: 100%;
+}
+
 .btn-area {
   text-align: right;
   margin-right: 10px;
