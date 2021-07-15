@@ -28,7 +28,7 @@
               type="checkbox"
               :value="item[checkedKey]"
               v-model="checkedItems"
-              @click="doSelect"
+              @change="doSelect"
             />
           </td>
           <td :key="j" v-for="(h, j) in headers">

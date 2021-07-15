@@ -214,6 +214,11 @@ const routes = [
     path: '/template/masterdetail',
     name: 'MasterDetail',
     component: () => import(/* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/MasterDetail.vue')
+  },
+  {
+    path: '/template/shuttle',
+    name: 'Shuttle',
+    component: () => import(/* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/Shuttle.vue')
   }
 ]
 
