@@ -26,6 +26,9 @@
 
 강의에서 나오는 모든 용어는 깃허브 위키 용어 사전에 정리되어 있습니다.
 
+## 개발환경 구성
+[개발환경 설치 매뉴얼](https://github.com/seungwongo/vue-1week/wiki/%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1)
+
 ## 접속 사이트 정보
 
 - Github ([https://github.com](https://github.com))
