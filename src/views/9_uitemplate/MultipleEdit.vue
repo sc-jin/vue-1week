@@ -29,9 +29,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr :key="item._id" v-for="item in items">
+          <tr :key="item.id" v-for="item in items">
             <td>
-              <input type="checkbox" :value="item._id" v-model="checked" />
+              <input type="checkbox" :value="item.id" v-model="checked" />
             </td>
             <td>
               <input type="text" v-model="item.name" />
@@ -90,10 +90,21 @@ export default {
       }
 
       for (const id of this.checked) {
-        checkedList.push(this.items.filter(item => item._id === id)[0])
+        checkedList.push(this.items.filter(item => item.id === id)[0])
       }
 
       console.log(checkedList)
+
+      checkedList.forEach(async item => {
+        const { id, name, company, email, phone, address } = item
+        await this.$put(`/users/${id}`, {
+          name,
+          company,
+          email,
+          phone,
+          address
+        })
+      })
     },
     doDelete() {
       if (this.checked.length === 0) {
@@ -101,6 +112,11 @@ export default {
       }
 
       console.log(this.checked)
+      this.checked.forEach(async item => {
+        await this.$delete(`/users/${item}`)
+      })
+
+      this.doSearch()
     },
     async doSearch() {
       const param = {
