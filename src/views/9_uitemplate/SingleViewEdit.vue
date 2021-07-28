@@ -64,8 +64,17 @@ export default {
   mounted() {},
   unmounted() {},
   methods: {
-    doSave() {
-      console.log(this.customer)
+    async doSave() {
+      console.log('customerId', this.customerId)
+      const { name, company, email, phone, address } = this.customer
+      const r = await this.$put(`/users/${this.customerId}`, {
+        name,
+        company,
+        email,
+        phone,
+        address
+      })
+      console.log('result', r)
     },
     async changeCustomer() {
       if (this.customerId === '') {
