@@ -112,11 +112,30 @@ export default {
       }
 
       console.log(this.checked)
-      this.checked.forEach(async item => {
-        await this.$delete(`/users/${item}`)
-      })
 
-      this.doSearch()
+      this.$swal({
+        title: 'Are you sure to delete?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(async result => {
+        if (result.isConfirmed) {
+          this.checked.forEach(async item => {
+            await this.$delete(`/users/${item}`)
+          })
+
+          this.$swal('Deleted!', 'New user has been deleted.', 'success').then(
+            result => {
+              console.log(result)
+              this.checked = []
+              this.doSearch()
+            }
+          )
+        }
+      })
     },
     async doSearch() {
       const param = {
@@ -126,7 +145,7 @@ export default {
 
       console.log(param)
 
-      this.items = await this.$api('/users')
+      this.items = await this.$get('/users')
     }
   }
 }

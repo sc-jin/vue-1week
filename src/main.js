@@ -4,9 +4,11 @@ import router from './router'
 import store from './store'
 import mixin from './mixins'
 import i18nPlugin from './plugins/i18n' //  i18n 플러그인 추가
+import VueSweetalert2 from 'vue-sweetalert2'
 
 import './assets/css/bootstrap-grid.min.css'
 import './assets/css/bootstrap-utilities.min.css'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 const i18nStrings = {
   en: {
@@ -20,6 +22,7 @@ const i18nStrings = {
 const app = createApp(App)
 app.use(store)
 app.use(router)
+app.use(VueSweetalert2)
 app.use(i18nPlugin, i18nStrings) // i18n 플러그인에 다국어 번역 데이터를 파라미터로 전달
 app.mixin(mixin)
 app.mount('#app')

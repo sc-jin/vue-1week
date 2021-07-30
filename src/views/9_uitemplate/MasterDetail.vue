@@ -30,7 +30,7 @@
       <table class="detail-table">
         <tr>
           <th>고객아이디</th>
-          <td>{{ customer._id }}</td>
+          <td>{{ customer.id }}</td>
         </tr>
         <tr>
           <th>고객명</th>

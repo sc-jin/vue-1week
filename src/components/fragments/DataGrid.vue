@@ -106,6 +106,7 @@ export default {
       showList: [],
       checkedItem: '',
       checkedItems: [],
+      currentItem: '',
       searchText: '',
       sortKey: '',
       sortValue: 1,
@@ -196,8 +197,17 @@ export default {
         endIdx = this.filterList.length
       }
 
+      if (this.selectType === 'radio') {
+        this.checkedItem = ''
+      }
+
       for (let i = startIdx; i < endIdx; i++) {
         showList.push(this.filterList[i])
+        if (this.selectType === 'radio') {
+          if (this.filterList[i][this.checkedKey] === this.currentItem) {
+            this.checkedItem = this.currentItem
+          }
+        }
       }
 
       this.showList = showList
@@ -232,6 +242,7 @@ export default {
     doSelect() {
       if (this.selectType === 'radio') {
         this.$emit(this.eventName, this.checkedItem)
+        this.currentItem = this.checkedItem
       } else if (this.selectType === 'checkbox') {
         this.$emit(this.eventName, this.checkedItems)
       }

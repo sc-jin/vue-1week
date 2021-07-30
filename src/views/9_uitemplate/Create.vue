@@ -1,28 +1,26 @@
 <template>
   <div>
     <div class="container">
-      <h1>회원가입</h1>
-      <p>계정 생성을 위해서 다음 정보를 작성해주세요.</p>
+      <h1>Customer</h1>
       <hr />
 
+      <label><b>Name</b></label>
+      <input type="text" v-model="name" placeholder="Enter Name" />
       <label><b>Email</b></label>
-      <input type="text" placeholder="Enter Email" />
+      <input type="text" v-model="email" placeholder="Enter Email" />
+      <label><b>Company</b></label>
+      <input type="text" v-model="company" placeholder="Enter Company" />
+      <label><b>Phone</b></label>
+      <input type="text" v-model="phone" placeholder="Enter Phone" />
+      <label><b>Address</b></label>
+      <input type="text" v-model="address" placeholder="Enter Address" />
 
-      <label><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" />
-
-      <label><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" />
       <hr />
       <p>
         By creating an account you agree to our <a href="#">Terms & Privacy</a>.
       </p>
 
-      <button class="registerbtn" @click="register">가입하기</button>
-    </div>
-
-    <div class="container signin">
-      <p>Already have an account? <a href="#">Sign in</a>.</p>
+      <button class="registerbtn" @click="doCreate">생성</button>
     </div>
   </div>
 </template>
@@ -32,7 +30,11 @@ export default {
   components: {},
   data() {
     return {
-      sampleData: ''
+      name: '',
+      email: '',
+      company: '',
+      phone: '',
+      address: ''
     }
   },
   setup() {},
@@ -40,7 +42,31 @@ export default {
   mounted() {},
   unmounted() {},
   methods: {
-    register() {}
+    async doCreate() {
+      this.$swal({
+        title: 'Are you sure to create?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, create it!'
+      }).then(async result => {
+        if (result.isConfirmed) {
+          const r = await this.$post('/users', {
+            name: this.name,
+            email: this.email,
+            company: this.company,
+            phone: this.phone,
+            address: this.address
+          })
+
+          console.log(r)
+
+          this.$swal.fire('Created!', 'New user has been created.', 'success')
+        }
+      })
+    }
   }
 }
 </script>

@@ -11,6 +11,7 @@
       </div>
       <div>
         <button @click="doSearch">조회</button>
+        <button @click="goToCreate">생성</button>
       </div>
     </div>
     <div class="table-container">
@@ -71,7 +72,10 @@ export default {
 
       console.log(param)
 
-      this.items = await this.$api('/users')
+      this.items = await this.$get('/users')
+    },
+    goToCreate() {
+      this.$router.push({ path: '/template/create' })
     }
   }
 }
