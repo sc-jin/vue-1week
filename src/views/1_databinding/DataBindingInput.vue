@@ -1,7 +1,8 @@
 <template>
   <div>
     <input type="text" v-model="valueModel" />
-    <input type="number" v-model.number="numberModel" />
+    <h1>{{ valueModel }}</h1>
+    <input type="number" v-model="numberModel" />
   </div>
 </template>
 <script>

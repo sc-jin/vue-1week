@@ -1,12 +1,10 @@
 <template>
   <div>
-    <select v-model="selectedGender">
+    <select v-model="selectedGender" @change="getUserList">
       <option value="">전체</option>
       <option value="male">남자</option>
       <option value="female">여자</option>
     </select>
-    <input type="search" v-model="searchName" placeholder="Enter the name." />
-    <button @click="getUserList">조회</button>
     <table>
       <thead>
         <tr>
@@ -36,62 +34,26 @@ export default {
   components: {},
   data() {
     return {
-      url:
-        'https://b1e5b8ea-4ddb-49b8-9239-f62e6fea9a35.mock.pstmn.io/getUserList',
       userList: [],
-      selectedGender: '',
-      searchName: ''
+      selectedGender: ''
     }
   },
   setup() {},
   created() {},
   mounted() {
-    // this.getUserList();
+    this.getUserList()
   },
   unmounted() {},
   methods: {
     async getUserList() {
-      var users = (await axios.get(this.url)).data.data
-
       if (this.selectedGender === '') {
-        //  성별 전체 선택
-        if (this.searchName === '') {
-          //  이름 입력 안함
-          this.userList = users //  전체 데이터
-        } else {
-          //  이름 입력 함
-          this.userList = users.filter(
-            u =>
-              u.name.toLowerCase().indexOf(this.searchName.toLowerCase()) > -1 // 사용자 이름에서 입력한 이름을 포함하는 데이터
-          )
-        }
+        this.userList = (await axios.get('http://localhost:3000/users')).data
       } else {
-        //  성별을 남자 혹은 여자 선택한 경우
-        if (this.searchName === '') {
-          //  이름 입력 안함
-          this.userList = users.filter(
-            u => u.gender === this.selectedGender // 사용자 성별이 사용자가 선택한 성별에 맞는 데이터
+        this.userList = (
+          await axios.get(
+            `http://localhost:3000/users?gender=${this.selectedGender}`
           )
-        } else {
-          //  이름 입력 함
-          // this.userList = users.filter(
-          //   (u) =>
-          //     u.gender == this.selectedGender &&
-          //     u.name.toLowerCase().indexOf(this.searchName.toLowerCase()) > -1 //성별과 이름을 조건 모두 만족하는 데이터
-          // );
-
-          var users2 = []
-          for (var user of users) {
-            if (
-              user.gender === this.selectedGender &&
-              user.name.toLowerCase.indexOf(this.searchName.toLowerCase()) > -1
-            ) {
-              users2.push(user)
-            }
-          }
-
-          this.userList = users2
-        }
+        ).data
       }
     }
   }
