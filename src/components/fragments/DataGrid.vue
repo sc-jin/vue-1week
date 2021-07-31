@@ -162,7 +162,6 @@ export default {
       this.changePage(1)
     },
     doSort(key) {
-      console.log(key)
       this.sortValue = this.sortKey === key ? this.sortValue * -1 : 1
 
       const sortValue1 = this.sortValue

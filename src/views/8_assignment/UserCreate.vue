@@ -32,7 +32,7 @@ export default {
   components: {},
   data() {
     return {
-      sampleData: ''
+      user: {}
     }
   },
   setup() {},
@@ -40,7 +40,9 @@ export default {
   mounted() {},
   unmounted() {},
   methods: {
-    register() {}
+    register() {
+      console.log(this.user)
+    }
   }
 }
 </script>
