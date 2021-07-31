@@ -1,14 +1,16 @@
 <template>
-  <div clas="modal">
+  <div class="modal" :class="{ hidden: isHide }">
     <data-grid
       selectType="radio"
       :headers="headers"
       :items="items"
       checkedKey="code"
-      eventName="change-item"
-      @link="goToDetail"
-      @change-item="selectMaterial"
+      @change-item="changeItem"
     />
+    <div>
+      <button @click="hide">Cancel</button>
+      <button class="ok" @click="selectMaterial">Ok</button>
+    </div>
   </div>
 </template>
 <script>
@@ -17,27 +19,36 @@ import DataGrid from '../fragments/DataGrid.vue'
 export default {
   name: '',
   components: { 'data-grid': DataGrid },
+  props: {
+    eventName: {
+      type: String,
+      default: 'select-material'
+    },
+    show: {
+      type: Boolean,
+      default: false
+    }
+  },
+  watch: {
+    show(currentValue, oldValue) {
+      console.log('currentValue', currentValue)
+      console.log('oldValue', oldValue)
+      this.isHide = !this.show
+    }
+  },
   data() {
     return {
       headers: [
         {
           title: '제품코드',
-          key: 'code',
-          link: true,
-          linkKey: 'code',
-          eventName: 'link'
+          key: 'code'
         },
         { title: '제품명', key: 'desc' },
         { title: '제품가격', key: 'price' }
       ],
       items: [],
-      checked: ''
-    }
-  },
-  props: {
-    width: {
-      type: String,
-      default: ''
+      checked: '',
+      isHide: true
     }
   },
   setup() {},
@@ -65,33 +76,40 @@ export default {
         { code: 'P0014', desc: '제품명 N', price: 5000000 }
       ]
     },
-    selectMaterial(code) {
+    changeItem(code) {
       console.log(code)
       this.checked = code
     },
-    goToDetail(v) {
-      console.log(v)
+    hide() {
+      this.isHide = true
+    },
+    selectMaterial() {
+      this.isHide = true
+      this.$emit(this.eventName, this.checked)
     }
   }
 }
 </script>
 <style scoped>
-.material-table {
-  width: 100%;
-}
-
-.material-table,
-.material-table > th,
-.material-table > td {
-  border-collapse: collapse;
-}
-
-.material-table > th,
-.material-table > td {
-  border: 1px solid #222;
-}
-
 .modal {
   margin: auto;
+  z-index: 9999;
+  position: relative;
+  width: 1000px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+button {
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+.ok {
+  background-color: cyan;
 }
 </style>

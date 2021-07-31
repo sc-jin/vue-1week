@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import ReuseComponent from '../views/4_reuse/ReuseComponent.vue'
 import ReuseComponent2 from '../views/4_reuse/ReuseComponent2.vue'
+import ReuseComponent3 from '../views/4_reuse/ReuseComponent3.vue'
 import ControlChild from '../views/4_reuse/ControlChild.vue'
 import ControlParent from '../views/4_reuse/ControlParent.vue'
 import Slot from '../views/4_reuse/Slot.vue'
@@ -192,6 +193,11 @@ const routes = [
     component: ReuseComponent2
   },
   {
+    path: '/reuse/reusecomponent3',
+    name: 'ReuseComponent3',
+    component: ReuseComponent3
+  },
+  {
     path: '/reuse/controlchild',
     name: 'ControlChild',
     component: ControlChild
@@ -212,6 +218,14 @@ const routes = [
     component: () =>
       import(
         /* webpackPrefetch:true, webpackChunkName: "advanced" */ '../views/5_advanced/Mixin.vue'
+      )
+  },
+  {
+    path: '/advanced/custom',
+    name: 'CustomDirective',
+    component: () =>
+      import(
+        /* webpackPrefetch:true, webpackChunkName: "advanced" */ '../views/5_advanced/CustomDirective.vue'
       )
   },
   {
