@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     changeSelect() {
-      alert(this.selectedValue)
+      console.log(this.selectedValue)
     }
   }
 }

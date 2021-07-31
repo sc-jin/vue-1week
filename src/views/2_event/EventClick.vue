@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     increaseCounter() {
-      this.counter = this.counter + 1
+      this.counter += 1
     }
   }
 }
