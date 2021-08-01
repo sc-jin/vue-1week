@@ -39,7 +39,7 @@
 ## 접속 사이트 정보
 
 - Github ([https://github.com](https://github.com))
-- 깃허브 강의 코드 다운로드 ([https://github.com/seungwongo/vue-lecture](https://github.com/seungwongo/vue-1week))
+- 깃허브 강의 코드 다운로드 ([https://github.com/seungwongo/vue-1week](https://github.com/seungwongo/vue-1week))
 - Vue 공식 사이트 ([https://v3.vuejs.org/](https://v3.vuejs.org/))
 - Vue CLI 공식 사이트 ([https://cli.vuejs.org/](https://cli.vuejs.org/))
 - Vuex 공식 사이트 ([https://vuex.vuejs.org/](https://vuex.vuejs.org/))
