@@ -118,6 +118,14 @@ export default {
   watch: {
     items() {
       this.filterList = this.items
+      this.checkedItem = ''
+      this.checkedItems = []
+      this.currentItem = ''
+      this.searchText = ''
+      this.sortKey = ''
+      this.sortValue = 1
+      this.currentPage = 1
+      this.pageRange = []
       this.changePage(1)
       this.paging()
       this.currentPage = 1
