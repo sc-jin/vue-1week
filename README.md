@@ -12,7 +12,14 @@
 1. Vue.js 3.x 버전을 기반으로 Vue프로젝트 생성 및 기본문법, 고급문법을 실무를 바탕으로 모두 배웁니다.
 2. 실무 프로젝트 운영시 고려해야 하는 라우팅 기법을 배웁니다.
 3. Mock 서버를 바탕으로 프론트엔드 개발자가 효율적으로 개발을 진행하는 방법을 배웁니다.
-4. 비즈니스 애플리케이션 개발에 가장 많이 사용되는 UI 패턴인 CRUSD를 바탕으로 실습 예제 구현을 통해 바로 실무에서 적용 가능한 수준으로 성장합니다.
+4. 비즈니스 애플리케이션 개발에 가장 많이 사용되는 UI 패턴을 바탕으로 실습 예제 구현을 통해 바로 실무에서 적용 가능한 수준으로 성장합니다.
+
+## 강의 진행 및 평가
+1. 강의 일정을 참조해 주세요.
+2. 강의에 사용되는 모든 샘플 코드는 깃허브를 통해서 제공됩니다.
+3. 매일 과제가 제공됩니다. 과제에 대한 결과물은 나중에 평가에 적용이 됩니다.
+4. 강의 5일차인 마지막 날, 마지막 시간에는 20문항으로 제공되는 최종 평가지를 작성하셔야 합니다.
+5. 강의를 따라오시는데 문제가 되는 분들을 위해서 매일 점심시간 전에 의사표현을 해주시면 점심시간에 부족한 부분에 대한 설명을 추가적으로 진행합니다. 그 외 필요한 경우 강의 시간 이후 저녁시간에 도움을 드리도록 하겠습니다.
 
 ## 강의 일정
 
@@ -32,7 +39,7 @@
 ## 접속 사이트 정보
 
 - Github ([https://github.com](https://github.com))
-- 깃허브 강의 코드 다운로드 ([https://github.com/seungwongo/vue-lecture](https://github.com/seungwongo/vue-1week))
+- 깃허브 강의 코드 다운로드 ([https://github.com/seungwongo/vue-1week](https://github.com/seungwongo/vue-1week))
 - Vue 공식 사이트 ([https://v3.vuejs.org/](https://v3.vuejs.org/))
 - Vue CLI 공식 사이트 ([https://cli.vuejs.org/](https://cli.vuejs.org/))
 - Vuex 공식 사이트 ([https://vuex.vuejs.org/](https://vuex.vuejs.org/))
