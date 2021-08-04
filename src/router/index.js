@@ -363,6 +363,14 @@ const routes = [
       import(
         /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/8_assignment/UserCreate.vue'
       )
+  },
+  {
+    path: '/assignment/vending',
+    name: 'Vending',
+    component: () =>
+      import(
+        /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/8_assignment/VendingMachine.vue'
+      )
   }
 ]
 

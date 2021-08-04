@@ -1,7 +1,7 @@
 export default {
   methods: {
-    dateFormat(date, format) {
-      var d = new Date()
+    dateFormat(d, format) {
+      // var d = new Date()
       const year = d.getFullYear()
       let month = d.getMonth() + 1
       month = month.toString().padStart(2, 0)
