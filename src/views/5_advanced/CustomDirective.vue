@@ -10,9 +10,7 @@
 export default {
   directives: {
     focus: {
-      mounted(el, binding) {
-        console.log(el)
-        console.log(binding)
+      mounted(el) {
         el.focus()
       }
     },

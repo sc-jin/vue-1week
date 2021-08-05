@@ -44,7 +44,9 @@
       </tbody>
       <tbody v-show="showList.length == 0">
         <tr>
-          <td :colspan="headers.length">No Data.</td>
+          <td :colspan="headers.length + (selectType != '' ? 1 : 0)">
+            No Data.
+          </td>
         </tr>
       </tbody>
     </table>
