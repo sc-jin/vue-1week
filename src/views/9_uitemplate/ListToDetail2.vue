@@ -12,22 +12,42 @@
       <button @click="goToCreate">생성</button>
     </div>
     <div class="table-container">
-      <data-grid
-        :headers="headers"
-        :items="items"
-        checkedKey="id"
-        :bHover="true"
-        @link="goToDetail"
-      />
+      <table class="data-grid">
+        <thead>
+          <tr>
+            <th>고객명</th>
+            <th>회사명</th>
+            <th>성별</th>
+            <th>이메일</th>
+            <th>연락처</th>
+            <th>주소</th>
+          </tr>
+        </thead>
+        <tbody v-show="items.length > 0">
+          <tr :key="item.id" v-for="item in items">
+            <td>
+              <a @click="goToDetail(item.id)" class="link">{{ item.name }}</a>
+            </td>
+            <td>{{ item.company }}</td>
+            <td>{{ item.gender }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.phone }}</td>
+            <td>{{ item.address }}</td>
+          </tr>
+        </tbody>
+        <tbody v-show="items.length == 0">
+          <tr>
+            <td colspan="6">No Data.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 <script>
-import DataGrid from '@/components/fragments/DataGrid.vue'
-
 export default {
   name: '',
-  components: { 'data-grid': DataGrid },
+  components: {},
   data() {
     return {
       searchRegion: '',
@@ -58,9 +78,6 @@ export default {
   mounted() {},
   unmounted() {},
   methods: {
-    changeRegion(data) {
-      this.searchRegion = data
-    },
     goToDetail(customerId) {
       this.$router.push({ path: '/template/detail', query: { id: customerId } })
     },
@@ -97,5 +114,48 @@ export default {
 .table-container {
   margin-top: 10px;
   padding: 10px;
+}
+
+.data-grid {
+  width: 100%;
+}
+
+.data-grid,
+.data-grid th,
+.data-grid td {
+  border-collapse: collapse;
+}
+
+.data-grid th,
+.data-grid td {
+  border: 1px solid #222;
+  padding: 5px;
+}
+
+.data-grid th {
+  cursor: pointer;
+}
+
+.pagination {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pagination a.active {
+  background-color: deeppink;
+  color: white;
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>
