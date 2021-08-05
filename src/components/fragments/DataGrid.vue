@@ -89,7 +89,18 @@ export default {
     headers: {
       type: Array,
       default: function() {
-        return [] // [{title:'컬럼명', key:'items의 오브젝트 키', link:false, linkKey:'', eventName:''}]
+        return []
+        // [
+        // {
+        //  title:'컬럼명',
+        //  key:'items의 오브젝트 키',
+        //  link:false,
+        //  linkKey:'',
+        //  eventName:'',
+        //  type:'text인지, select인지',
+        //  options:[{v:'', t:''}] - type이 select인 경우
+        //  }
+        //  ]
       }
     },
     items: {
