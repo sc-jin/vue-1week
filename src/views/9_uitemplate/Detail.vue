@@ -41,20 +41,25 @@ export default {
     return {
       items: [],
       customer: {},
-      customerId: ''
+      customerId: '',
+      searchCustomerName: ''
     }
   },
   setup() {},
   created() {
     console.log(this.$route.query.id)
     this.customerId = this.$route.query.id
+    this.searchCustomerName = this.$route.query.searchCustomerName
     this.getCustomer()
   },
   mounted() {},
   unmounted() {},
   methods: {
     goToList() {
-      this.$router.push({ path: '/template/listtodetail' })
+      this.$router.push({
+        path: '/template/listtodetail',
+        query: { searchCustomerName: this.searchCustomerName }
+      })
     },
     goToEdit() {
       this.$router.push({
@@ -63,7 +68,7 @@ export default {
       })
     },
     async getCustomer() {
-      this.customer = await this.$api(`/users/${this.customerId}`)
+      this.customer = await this.$get(`/users/${this.customerId}`)
     }
   }
 }

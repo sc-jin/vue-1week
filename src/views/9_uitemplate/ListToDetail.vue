@@ -55,14 +55,22 @@ export default {
   },
   setup() {},
   created() {},
-  mounted() {},
+  mounted() {
+    if (this.$route.query.searchCustomerName !== undefined) {
+      this.searchCustomerName = this.$route.query.searchCustomerName
+      this.doSearch()
+    }
+  },
   unmounted() {},
   methods: {
     changeRegion(data) {
       this.searchRegion = data
     },
     goToDetail(customerId) {
-      this.$router.push({ path: '/template/detail', query: { id: customerId } })
+      this.$router.push({
+        path: '/template/detail',
+        query: { id: customerId, searchCustomerName: this.searchCustomerName }
+      })
     },
     async doSearch() {
       this.items = await this.$get(
