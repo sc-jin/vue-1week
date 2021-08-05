@@ -12,11 +12,6 @@ export default {
     return {
       title2: '부제목 입니다.'
     }
-  },
-  setup() {},
-  created() {},
-  mounted() {},
-  unmounted() {},
-  methods: {}
+  }
 }
 </script>
