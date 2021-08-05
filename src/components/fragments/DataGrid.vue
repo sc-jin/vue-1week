@@ -32,13 +32,25 @@
             />
           </td>
           <td :key="j" v-for="(h, j) in headers">
-            <a
-              class="link"
-              v-if="h.link"
-              @click="goToLink(item[h.linkKey], h.eventName)"
-              >{{ item[h['key']] }}</a
-            >
-            <span v-else>{{ item[h['key']] }}</span>
+            <template v-if="h.link">
+              <a class="link" @click="goToLink(item[h.linkKey], h.eventName)">{{
+                item[h['key']]
+              }}</a>
+            </template>
+            <template v-else-if="editable">
+              <input
+                type="text"
+                v-if="h.type == 'text'"
+                v-model="item[h['key']]"
+              />
+              <select v-else-if="h.type == 'select'" v-model="item[h['key']]">
+                <option :value="opt.v" :key="opt.v" v-for="opt in h.options">{{
+                  opt.t
+                }}</option>
+              </select>
+              <span v-else>{{ item[h['key']] }}</span>
+            </template>
+            <template v-else>{{ item[h['key']] }}</template>
           </td>
         </tr>
       </tbody>
@@ -107,6 +119,10 @@ export default {
       default: ''
     },
     bHover: {
+      type: Boolean,
+      default: false
+    },
+    editable: {
       type: Boolean,
       default: false
     }
