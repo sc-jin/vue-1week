@@ -109,7 +109,7 @@ export default {
             phone: this.customer.phone,
             address: this.customer.address
           })
-          // console.log('result', r)
+          console.log('result', r)
 
           this.$swal('Updated!', 'User has been updated.', 'success')
         }
