@@ -43,6 +43,11 @@
                 v-if="h.type == 'text'"
                 v-model="item[h['key']]"
               />
+              <input
+                type="number"
+                v-else-if="h.type == 'number'"
+                v-model.number="item[h['key']]"
+              />
               <select v-else-if="h.type == 'select'" v-model="item[h['key']]">
                 <option :value="opt.v" :key="opt.v" v-for="opt in h.options">{{
                   opt.t
