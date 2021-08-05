@@ -13,8 +13,8 @@
           </th>
         </tr>
       </thead>
-      <tbody>
-        <tr :key="i" v-for="(item, i) in showList">
+      <tbody v-show="showList.length > 0">
+        <tr :class="{ hover: bHover }" :key="i" v-for="(item, i) in showList">
           <td v-if="selectType === 'radio'">
             <input
               type="radio"
@@ -40,6 +40,11 @@
             >
             <span v-else>{{ item[h['key']] }}</span>
           </td>
+        </tr>
+      </tbody>
+      <tbody v-show="showList.length == 0">
+        <tr>
+          <td :colspan="headers.length">No Data.</td>
         </tr>
       </tbody>
     </table>
@@ -70,7 +75,7 @@ export default {
     headers: {
       type: Array,
       default: function() {
-        return [] // [{title:'컬럼명', key:'items의 오브젝트 키', link:false, linkKey:'', linkEventName:''}]
+        return [] // [{title:'컬럼명', key:'items의 오브젝트 키', link:false, linkKey:'', eventName:''}]
       }
     },
     items: {
@@ -98,6 +103,10 @@ export default {
     checkedKey: {
       type: String,
       default: ''
+    },
+    bHover: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -279,6 +288,10 @@ export default {
 
 .data-grid th {
   cursor: pointer;
+}
+
+.data-grid .hover:hover {
+  background-color: rgb(255, 235, 249);
 }
 
 .pagination {

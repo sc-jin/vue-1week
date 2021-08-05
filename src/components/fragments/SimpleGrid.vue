@@ -47,7 +47,7 @@ export default {
     headers: {
       type: Array,
       default: function() {
-        return [] // [{title:'컬럼명', key:'items의 오브젝트 키', link:false, linkKey:'', linkEventName:''}]
+        return [] // [{title:'컬럼명', key:'items의 오브젝트 키', link:false, linkKey:'', eventName:''}]
       }
     },
     items: {
