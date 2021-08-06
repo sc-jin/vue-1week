@@ -4,10 +4,7 @@
     <div class="container">
       <button
         class="menu"
-        @click="
-          menu.isSelected = true
-          menu.qty++
-        "
+        @click=";(menu.isSelected = true), menu.qty++"
         :key="menu.menuId"
         v-for="menu in menus"
       >
@@ -38,12 +35,7 @@
             </td>
             <td>{{ menu.price * menu.qty }}</td>
             <td>
-              <button
-                @click="
-                  menu.isSelected = false
-                  menu.qty = 0
-                "
-              >
+              <button @click=";(menu.isSelected = false), (menu.qty = 0)">
                 삭제
               </button>
             </td>
