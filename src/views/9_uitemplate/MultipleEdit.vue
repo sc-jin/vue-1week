@@ -18,6 +18,7 @@
         :items="items"
         selectType="checkbox"
         checkedKey="id"
+        checkedColor="red"
         :editable="true"
         @change-item="checkedItem"
       />

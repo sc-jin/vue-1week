@@ -14,7 +14,14 @@
         </tr>
       </thead>
       <tbody v-show="showList.length > 0">
-        <tr :class="{ hover: bHover }" :key="i" v-for="(item, i) in showList">
+        <tr
+          :class="{
+            hover: bHover,
+            active: checkedItems.filter(s => s.id == item.id).length > 0
+          }"
+          :key="i"
+          v-for="(item, i) in showList"
+        >
           <td v-if="selectType === 'radio'">
             <input
               type="radio"
@@ -131,6 +138,10 @@ export default {
       default: 'change-item'
     },
     checkedKey: {
+      type: String,
+      default: ''
+    },
+    checkedColor: {
       type: String,
       default: ''
     },
@@ -349,5 +360,9 @@ export default {
 .link {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.active {
+  background-color: deeppink;
 }
 </style>
