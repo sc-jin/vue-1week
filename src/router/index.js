@@ -301,6 +301,14 @@ const routes = [
       )
   },
   {
+    path: '/template/listtodetail2',
+    name: 'ListToDetail2',
+    component: () =>
+      import(
+        /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/ListToDetail2.vue'
+      )
+  },
+  {
     path: '/template/detail',
     name: 'Detail',
     component: () =>
@@ -325,6 +333,14 @@ const routes = [
       )
   },
   {
+    path: '/template/multipleedit2',
+    name: 'MultipleEdit2',
+    component: () =>
+      import(
+        /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/MultipleEdit2.vue'
+      )
+  },
+  {
     path: '/template/masterdetail',
     name: 'MasterDetail',
     component: () =>
@@ -338,6 +354,22 @@ const routes = [
     component: () =>
       import(
         /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/Shuttle.vue'
+      )
+  },
+  {
+    path: '/template/bulletin',
+    name: 'Bulletin',
+    component: () =>
+      import(
+        /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/Bulletin.vue'
+      )
+  },
+  {
+    path: '/template/bulletindetail',
+    name: 'BulletinDetail',
+    component: () =>
+      import(
+        /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/BulletinDetail.vue'
       )
   },
   {
@@ -370,6 +402,14 @@ const routes = [
     component: () =>
       import(
         /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/8_assignment/VendingMachine.vue'
+      )
+  },
+  {
+    path: '/assignment/restaurant',
+    name: 'Restaurant',
+    component: () =>
+      import(
+        /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/8_assignment/Restaurant.vue'
       )
   }
 ]
