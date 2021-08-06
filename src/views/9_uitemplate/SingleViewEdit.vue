@@ -51,7 +51,34 @@ export default {
     return {
       items: [],
       customer: {},
-      customerId: ''
+      customerId: '',
+      oldCustomer: {},
+      originalCustomer: {},
+      bInit: false,
+      bChanged: false
+    }
+  },
+  watch: {
+    customer: {
+      deep: true,
+      handler(currentValue) {
+        console.log('oldValue', this.oldCustomer)
+        console.log('currentValue', currentValue)
+
+        if (this.oldCustomer.id && this.oldCustomer.id === currentValue.id) {
+          let hasChanged = false
+          for (const key in this.originalCustomer) {
+            if (this.originalCustomer[key] !== currentValue[key]) {
+              hasChanged = true
+            }
+          }
+          this.bChanged = hasChanged
+        } else {
+          this.bChanged = false
+        }
+
+        this.oldCustomer = JSON.parse(JSON.stringify(currentValue))
+      }
     }
   },
   setup() {},
@@ -98,6 +125,7 @@ export default {
         return
       }
       this.customer = await this.$get(`/users/${this.customerId}`)
+      this.originalCustomer = JSON.parse(JSON.stringify(this.customer))
     },
     async getCustomer() {
       this.items = await this.$get('/users')
