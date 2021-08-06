@@ -9,8 +9,8 @@
         @keyup.enter="doSearch"
       />
       <button @click="doSearch" style="margin-right:5px;">조회</button>
-      <button @click="doSave">저장</button>
-      <button @click="doDelete">삭제</button>
+      <button @click="doSave" :disabled="checked.length == 0">저장</button>
+      <button @click="doDelete" :disabled="checked.length == 0">삭제</button>
     </div>
     <div class="table-container">
       <data-grid
@@ -36,8 +36,7 @@ export default {
       headers: [
         {
           title: '고객명',
-          key: 'name',
-          type: 'text'
+          key: 'name'
         },
         {
           title: '회사명',
@@ -98,6 +97,7 @@ export default {
           })
 
           this.$swal('Updated!', 'User has been updated.', 'success')
+          this.doSearch()
         }
       })
     },
