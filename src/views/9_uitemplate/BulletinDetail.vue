@@ -67,6 +67,7 @@ export default {
       })
 
       console.log(r)
+      this.newComment = ''
 
       this.getComment()
     },
