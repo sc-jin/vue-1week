@@ -10,7 +10,9 @@
       />
       <button @click="doSearch" style="margin-right:5px;">조회</button>
       <button @click="goToCreate" style="margin-right:5px;">생성</button>
-      <button @click="downloadExcel">엑셀 다운로드</button>
+      <button @click="downloadExcel" :disabled="items.length == 0">
+        엑셀 다운로드
+      </button>
     </div>
     <div class="table-container">
       <data-grid
