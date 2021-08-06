@@ -13,50 +13,56 @@
       <button @click="doDelete">삭제</button>
     </div>
     <div class="table-container">
-      <data-grid
-        :headers="headers"
-        :items="items"
-        selectType="checkbox"
-        checkedKey="id"
-        :editable="true"
-        @change-item="checkedItem"
-      />
+      <table class="data-grid">
+        <thead>
+          <tr>
+            <th></th>
+            <th>고객명</th>
+            <th>회사명</th>
+            <th>성별</th>
+            <th>이메일</th>
+            <th>연락처</th>
+            <th>주소</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr :key="item.id" v-for="item in items">
+            <td>
+              <input type="checkbox" :value="item.id" v-model="checked" />
+            </td>
+            <td>
+              <input type="text" v-model="item.name" />
+            </td>
+            <td>
+              <input type="text" v-model="item.company" />
+            </td>
+            <td>
+              {{ item.gender }}
+            </td>
+            <td>
+              <input type="email" v-model="item.email" />
+            </td>
+            <td>
+              <input type="tel" v-model="item.phone" />
+            </td>
+            <td>
+              <input type="text" v-model="item.address" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
 <script>
-import DataGrid from '@/components/fragments/DataGrid.vue'
-
 export default {
   name: '',
-  components: { 'data-grid': DataGrid },
+  components: {},
   data() {
     return {
+      searchRegion: '',
       searchCustomerName: '',
-      headers: [
-        {
-          title: '고객명',
-          key: 'name',
-          type: 'text'
-        },
-        {
-          title: '회사명',
-          key: 'company',
-          type: 'text'
-        },
-        {
-          title: '성별',
-          key: 'gender',
-          type: 'select',
-          options: [
-            { v: 'male', t: '남' },
-            { v: 'female', t: '여' }
-          ]
-        },
-        { title: '이메일', key: 'email', type: 'text' },
-        { title: '연락처', key: 'phone', type: 'text' },
-        { title: '주소', key: 'address', type: 'text' }
-      ],
+      regionList: [],
       items: [],
       checked: []
     }
@@ -66,9 +72,11 @@ export default {
   mounted() {},
   unmounted() {},
   methods: {
-    checkedItem(data) {
-      this.checked = data
-      console.log(this.checked)
+    changeRegion(data) {
+      this.searchRegion = data
+    },
+    goToDetail(customerId) {
+      this.$router.push({ path: '/template/detail', query: { id: customerId } })
     },
     doSave() {
       const checkedList = []
@@ -93,8 +101,14 @@ export default {
           console.log(checkedList)
 
           checkedList.forEach(async item => {
-            // const { id, name, company, email, phone, address } = item
-            await this.$put(`/users/${item.id}`, item)
+            const { id, name, company, email, phone, address } = item
+            await this.$put(`/users/${id}`, {
+              name,
+              company,
+              email,
+              phone,
+              address
+            })
           })
 
           this.$swal('Updated!', 'User has been updated.', 'success')
