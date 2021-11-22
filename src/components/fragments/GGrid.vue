@@ -8,8 +8,44 @@
       <thead>
         <tr>
           <th v-if="selectType === 'radio' || selectType === 'checkbox'"></th>
-          <th :key="i" v-for="(h, i) in headers" @click="doSort(h.key)">
-            {{ h.title }}
+          <th
+            :key="i"
+            v-for="(h, i) in headers"
+            @click="
+              showContextMenuIdx == i
+                ? (showContextMenuIdx = -1)
+                : (showContextMenuIdx = i)
+            "
+          >
+            <div class="dropdown">
+              {{ h.title }}
+              <ul
+                class="dropdown-menu"
+                :class="{ show: showContextMenuIdx == i }"
+                aria-labelledby="dropdownMenuButton1"
+              >
+                <li>
+                  <a class="dropdown-item" @click="doAscendingSort(h.key)"
+                    >Sort Ascending</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" @click="doDecendingSort(h.key)"
+                    >Sort Decending</a
+                  >
+                </li>
+                <li v-if="filterType == 'select'">
+                  <select v-model="selOpts[h.key]" @change="doFilter(i)">
+                    <option
+                      :value="opt"
+                      :key="j"
+                      v-for="(opt, j) in opts[h.key]"
+                      >{{ opt }}</option
+                    >
+                  </select>
+                </li>
+              </ul>
+            </div>
           </th>
         </tr>
       </thead>
@@ -39,30 +75,47 @@
             />
           </td>
           <td :key="j" v-for="(h, j) in headers">
-            <template v-if="h.link">
-              <a class="link" @click="goToLink(item[h.linkKey], h.eventName)">{{
-                item[h['key']]
-              }}</a>
-            </template>
-            <template v-else-if="editable">
-              <input
-                type="text"
-                v-if="h.type == 'text'"
-                v-model="item[h['key']]"
-              />
-              <input
-                type="number"
-                v-else-if="h.type == 'number'"
-                v-model.number="item[h['key']]"
-              />
-              <select v-else-if="h.type == 'select'" v-model="item[h['key']]">
-                <option :value="opt.v" :key="opt.v" v-for="opt in h.options">{{
-                  opt.t
-                }}</option>
-              </select>
-              <span v-else>{{ item[h['key']] }}</span>
-            </template>
-            <template v-else>{{ item[h['key']] }}</template>
+            <a
+              v-if="h.type === 'link'"
+              class="link"
+              @click="goToLink(item[h.linkKey], h.eventName)"
+              >{{ item[h['key']] }}</a
+            >
+            <input
+              type="text"
+              v-else-if="h.type === 'text' && h.editable"
+              v-model="item[h['key']]"
+            />
+            <input
+              type="number"
+              v-else-if="h.type === 'number' && h.editable"
+              v-model.number="item[h['key']]"
+            />
+            <select
+              v-else-if="h.type === 'select' && h.editable"
+              v-model="item[h['key']]"
+            >
+              <option :value="opt.v" :key="opt.v" v-for="opt in h.options">{{
+                opt.t
+              }}</option>
+            </select>
+            <input
+              type="text"
+              v-else-if="h.type === 'date' && h.editable"
+              v-model="item[h['key']]"
+            />
+            <span v-else-if="h.type === 'date'">{{
+              convertDateFormat(item[h['key']])
+            }}</span>
+            <input
+              type="text"
+              v-else-if="h.type === 'currency' && h.editable"
+              v-model="item[h['key']]"
+            />
+            <span v-else-if="h.type === 'currency'">{{
+              convertCurrencyFormat(item[h['key']])
+            }}</span>
+            <span v-else>{{ item[h['key']] }}</span>
           </td>
         </tr>
       </tbody>
@@ -107,10 +160,12 @@ export default {
         // {
         //  title:'컬럼명',
         //  key:'items의 오브젝트 키',
-        //  link:false,
         //  linkKey:'',
         //  eventName:'',
-        //  type:'text인지, select인지',
+        //  editable:true,
+        //  filterType: 'select', 'date', 'number'
+        //  groupSummary: 'none', 'sum', 'average'
+        //  type:'text', 'select', 'date', 'currency', 'link'
         //  options:[{v:'', t:''}] - type이 select인 경우
         //  }
         //  ]
@@ -150,9 +205,13 @@ export default {
       type: Boolean,
       default: false
     },
-    editable: {
-      type: Boolean,
-      default: false
+    dateFormat: {
+      type: String,
+      default: 'yyyy.MM.dd'
+    },
+    currencyFormat: {
+      type: String,
+      default: '#,###'
     }
   },
   data() {
@@ -167,7 +226,10 @@ export default {
       sortValue: 1,
       totalPage: 1,
       currentPage: 1,
-      pageRange: []
+      pageRange: [],
+      showContextMenuIdx: -1,
+      opts: {},
+      selOpts: {}
     }
   },
   watch: {
@@ -225,7 +287,36 @@ export default {
       this.changePage(1)
     },
     doSort(key) {
+      this.showContextMenuIdx = -1
       this.sortValue = this.sortKey === key ? this.sortValue * -1 : 1
+
+      const sortValue1 = this.sortValue
+      const sortValue2 = this.sortValue * -1
+
+      this.filterList = this.filterList.sort(function(a, b) {
+        return a[key] > b[key] ? sortValue1 : b[key] > a[key] ? sortValue2 : 0
+      })
+
+      this.sortKey = key
+      this.changePage(this.currentPage)
+    },
+    doAscendingSort(key) {
+      this.showContextMenuIdx = -1
+      this.sortValue = 1
+
+      const sortValue1 = this.sortValue
+      const sortValue2 = this.sortValue * -1
+
+      this.filterList = this.filterList.sort(function(a, b) {
+        return a[key] > b[key] ? sortValue1 : b[key] > a[key] ? sortValue2 : 0
+      })
+
+      this.sortKey = key
+      this.changePage(this.currentPage)
+    },
+    doDecendingSort(key) {
+      this.showContextMenuIdx = -1
+      this.sortValue = -1
 
       const sortValue1 = this.sortValue
       const sortValue2 = this.sortValue * -1
@@ -311,6 +402,91 @@ export default {
     },
     goToLink(v, eventName) {
       this.$emit(eventName, v)
+    },
+    convertDateFormat(d) {
+      let year = ''
+      let month = ''
+      let day = ''
+
+      if (typeof d === 'string') {
+        year = d.substr(0, 4)
+        month = d.substr(4, 2)
+        day = d.substr(6, 2)
+      } else if (typeof d === 'object') {
+        year = d.getFullYear()
+        month = d.getMonth() + 1
+        month = month.toString().padStart(2, 0)
+        day = d.getDate()
+      }
+
+      return this.dateFormat
+        .replace('YYYY', year)
+        .replace('MM', month)
+        .replace('DD', day)
+    },
+    convertCurrencyFormat(amount) {
+      let currencyUnit = ''
+
+      if (this.currencyFormat.substring(0, 1) !== '#') {
+        currencyUnit = this.currencyFormat.substring(0, 1)
+      }
+
+      let groupingSeparator = ''
+      let maxFractionDigits = 0
+      let decimalSeparator = ''
+
+      if (this.currencyFormat.indexOf('.') === -1) {
+        groupingSeparator = ','
+      } else if (this.currencyFormat.indexOf(',') === -1) {
+        groupingSeparator = '.'
+      } else if (
+        this.currencyFormat.indexOf(',') < this.currencyFormat.indexOf('.')
+      ) {
+        groupingSeparator = ','
+        decimalSeparator = '.'
+        maxFractionDigits =
+          this.currencyFormat.length - this.currencyFormat.indexOf('.') - 1
+      } else {
+        groupingSeparator = '.'
+        decimalSeparator = ','
+        maxFractionDigits =
+          this.currencyFormat.length - this.currencyFormat.indexOf(',') - 1
+      }
+
+      let sign = ''
+      let dec = 1
+      for (let i = 0; i < maxFractionDigits; i++) {
+        dec = dec * 10
+      }
+
+      let v = String(Math.round(parseFloat(amount) * dec) / dec)
+
+      if (v.startsWith('-')) {
+        sign = '-'
+        v = v.substring(1)
+      }
+
+      if (
+        maxFractionDigits > 0 &&
+        this.currencyFormat.substring(this.currencyFormat.length - 1) === '0'
+      ) {
+        v = String(parseFloat(v).toFixed(maxFractionDigits))
+      }
+
+      let d = ''
+
+      if (maxFractionDigits > 0 && v.indexOf('.') > -1) {
+        d = v.substring(v.indexOf('.'))
+        d = d.replace('.', decimalSeparator)
+        v = v.substring(0, v.indexOf('.'))
+      }
+
+      const r = /(\d+)(\d{3})/
+
+      while (r.test(v)) {
+        v = v.replace(r, '$1' + groupingSeparator + '$2')
+      }
+      return sign + currencyUnit + String(v) + String(d)
     }
   }
 }
@@ -365,5 +541,65 @@ export default {
 
 .active {
   background-color: deeppink;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+.data-grid .dropdown {
+  position: relative;
+}
+
+.data-grid .dropdown-menu {
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate3d(0px, 25px, 0px);
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #00000026;
+  border-radius: 0.25rem;
+}
+
+.data-grid .dropdown-menu.show {
+  display: block;
+}
+
+.data-grid .dropdown-menu > li {
+  display: list-item;
+  list-style: none;
+  text-align: -webkit-match-parent;
+}
+
+.data-grid .dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: #0000;
+  border: 0;
 }
 </style>

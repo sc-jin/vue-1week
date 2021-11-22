@@ -2,6 +2,7 @@
   <input type="text" @keydown="checkInt(event)" />
 </template>
 <script>
+/* eslint-disable */
 export default {
   name: '',
   components: {},

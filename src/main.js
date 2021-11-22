@@ -6,6 +6,8 @@ import mixin from './mixins'
 import i18nPlugin from './plugins/i18n' //  i18n 플러그인 추가
 import i18nStrings from './i18n/default'
 import VueSweetalert2 from 'vue-sweetalert2'
+import VueApexCharts from 'vue3-apexcharts'
+// import VueApexCharts from 'vue3-apexcharts/dist/vue3-apexcharts.common'
 
 import './assets/css/bootstrap-grid.min.css'
 import './assets/css/bootstrap-utilities.min.css'
@@ -81,6 +83,7 @@ app.use(router)
 
 app.use(VueSweetalert2)
 app.use(i18nPlugin, i18nStrings) // i18n 플러그인에 다국어 번역 데이터를 파라미터로 전달
+app.use(VueApexCharts)
 app.mixin(mixin)
 app.mount('#app')
 

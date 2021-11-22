@@ -2,6 +2,7 @@
   <input type="text" @keydown="checkFloat(event)" />
 </template>
 <script>
+/* eslint-disable */
 export default {
   name: '',
   components: {},

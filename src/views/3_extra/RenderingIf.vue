@@ -2,6 +2,11 @@
   <div v-if="userRole == 'Admin'">
     <button>조회</button>
     <button>생성</button>
+    <button>삭제</button>
+  </div>
+  <div v-else-if="userRole == 'Manager'">
+    <button>조회</button>
+    <button>생성</button>
   </div>
   <div v-else>
     <button>조회</button>
@@ -13,7 +18,7 @@ export default {
   components: {},
   data() {
     return {
-      userRole: 'User'
+      userRole: 'Admin'
     }
   },
   setup() {},

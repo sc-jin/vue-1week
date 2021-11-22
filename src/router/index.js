@@ -389,6 +389,14 @@ const routes = [
       )
   },
   {
+    path: '/template/chart',
+    name: 'Chart',
+    component: () =>
+      import(
+        /* webpackPrefetch:true, webpackChunkName: "uitemplate" */ '../views/9_uitemplate/Chart.vue'
+      )
+  },
+  {
     path: '/assignment/usercreate',
     name: 'UserCreate',
     component: () =>
