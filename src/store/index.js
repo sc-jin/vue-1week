@@ -13,6 +13,15 @@ const store = createStore({
       state.user = data
     }
   },
+  getters: {
+    isLogin(state) {
+      if (state.user.userId) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
   plugins: [
     persistedstate({
       paths: ['user']

@@ -6,6 +6,7 @@ import ReuseComponent3 from '../views/4_reuse/ReuseComponent3.vue'
 import ControlChild from '../views/4_reuse/ControlChild.vue'
 import ControlParent from '../views/4_reuse/ControlParent.vue'
 import Slot from '../views/4_reuse/Slot.vue'
+// import store from '../store'
 
 const routes = [
   {
@@ -425,6 +426,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  // if (store.state.user.userId || to.fullPath.indexOf('/vuex/store') > -1) {
+  //   next()
+  // } else {
+  //   next('/vuex/store')
+  // }
+  next()
+})
+
+router.afterEach((to, from) => {
+  console.log('from', from)
+  // beforeEach, afterEach 활용하면 페이지마다 머문 시간을 DB에 기록할 수 있음
 })
 
 export default router
