@@ -87,5 +87,5 @@ app.use(VueApexCharts)
 app.mixin(mixin)
 app.mount('#app')
 
-window.Kakao.init('d8bb26c0f48cd3d3133c47338c290266')
-window.Kakao.isInitialized()
+// window.Kakao.init('')
+// window.Kakao.isInitialized()
